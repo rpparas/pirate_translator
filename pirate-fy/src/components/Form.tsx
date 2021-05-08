@@ -4,6 +4,8 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FlagIcon from "@material-ui/icons/Flag";
+import TranslationModal from "./TranslationDialog";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
@@ -18,8 +20,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Form = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [translation, setTranslation] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
+  const [translation, setTranslation] = useState<string>("");
+  const [showTranslation, setShowTranslation] = useState<boolean>(false);
 
   const classes = useStyles();
 
@@ -31,7 +34,8 @@ const Form = () => {
       .then((response) => response.json())
       .then((response) => {
         setTranslation(response.contents.translated)
-        alert(response.contents.translated);
+        setShowTranslation(true);
+        // alert(response.contents.translated);
       })
       .catch((error) => alert(error));
 
@@ -55,7 +59,7 @@ const Form = () => {
           required
           fullWidth
           id="input-text"
-          label="Your Textaaa:"
+          label="Your Text:"
           name="input-text"
           className={classes.input}
           placeholder="Enter English text to translate to Pirate lingo"
@@ -76,6 +80,10 @@ const Form = () => {
           <FlagIcon />
         </Button>
       </form>
+      <TranslationModal
+        showTranslation={showTranslation}
+        translation={translation}
+      />
     </Container>
   );
 };
