@@ -9,7 +9,7 @@ const Header = () => {
       <AppBar position="static">
         <Toolbar>
           <Icon icon={pirateIcon} height="1.5rem" width="1.5rem" />
-          <h3 className="app-title">Translator for Pirates</h3>
+          <h2 className="app-title">Translator for Pirates</h2>
         </Toolbar>
       </AppBar>
     </div>
