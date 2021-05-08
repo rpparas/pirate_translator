@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { atom, useSetRecoilState } from "recoil";
 
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
@@ -7,27 +8,15 @@ import FlagIcon from "@material-ui/icons/Flag";
 import TranslationModal from "./TranslationDialog";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(() => ({
-  input: {
-    marginTop: "1.5rem",
-  },
-  button: {
-    fontSize: "1rem",
-    fontWeight: "bold",
-    marginTop: "1rem",
-  },
-  spinner: {
-    marginLeft: 5
-  }
-}));
+import { useStyles } from "./Form.styles";
+import { translationState, dialogState } from "../states";
 
 const Form = () => {
   const [inputValue, setInputValue] = useState<string>("");
-  const [translation, setTranslation] = useState<string>("");
-  const [showTranslation, setShowTranslation] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const setTranslation = useSetRecoilState(translationState);
+  const setDialogOpen = useSetRecoilState(dialogState);
 
   const classes = useStyles();
 
@@ -35,23 +24,19 @@ const Form = () => {
     evt.preventDefault();
     setLoading(true);
 
-    // const baseUrl = "https://api.funtranslations.com/translate/pirate.json?text=";
-    const baseUrl = "https://jsonplaceholder.typicode.com/todos/1";
+    const baseUrl = "https://api.funtranslations.com/translate/pirate.json?text=";
     fetch(baseUrl + encodeURIComponent(inputValue))
       .then((response) => response.json())
       .then((response) => {
-        setTranslation(response.contents.translated);
-        setShowTranslation(true);
-        // alert(response.contents.translated);
+        setTranslation(response?.contents ? response.contents.translated : response.error.message);
       })
-      // .catch((error) => alert(error.message))
       .catch((error) => {
-        setTranslation("Invalid translation");
-        setShowTranslation(true);
-        // alert(response.contents.translated);
+        setTranslation(error.message);
       })
-      .finally(() => setLoading(false));
-
+      .finally(() => {
+        setDialogOpen(true);
+        setLoading(false)
+      });
   };
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,10 +80,7 @@ const Form = () => {
           {loading && <CircularProgress className={classes.spinner} />}
         </Button>
       </form>
-      <TranslationModal
-        showTranslation={showTranslation}
-        translation={translation}
-      />
+      <TranslationModal />
     </Container>
   );
 };
