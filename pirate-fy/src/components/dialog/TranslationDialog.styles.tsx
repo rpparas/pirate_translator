@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 import amber from "@material-ui/core/colors/amber";
-import red from "@material-ui/core/colors/red";
 
 export const useStyles = makeStyles(() => ({
     dialog: {
