@@ -29,13 +29,14 @@ const Form = () => {
   // fetch translation via 3rd party API
   const fetchTranslation = (lang: string | null) => {
     // setLoading(true);
-      setTranslation({
-        ...translation,
-        isLoading: true
-      });
+    setTranslation({
+      ...translation,
+      isLoading: true,
+    });
 
-    const baseUrl =
-      `https://api.funtranslations.com/translate/${!!lang ? lang : 'pirate'}.json?text=`;
+    const baseUrl = `https://api.funtranslations.com/translate/${
+      !!lang ? lang : "pirate"
+    }.json?text=`;
     fetch(baseUrl + encodeURIComponent(inputValue))
       .then((response) => response.json())
       .then((response) => {
@@ -55,7 +56,7 @@ const Form = () => {
           isLoading: false,
           openDialog: true,
         });
-      })
+      });
   };
 
   return (
@@ -92,7 +93,9 @@ const Form = () => {
         >
           PIRATE-FY
           {!translation.isLoading && !translation.openDialog && <FlagIcon />}
-          {translation.isLoading && !translation.openDialog && <CircularProgress className={classes.spinner} />}
+          {translation.isLoading && !translation.openDialog && (
+            <CircularProgress className={classes.spinner} />
+          )}
         </Button>
       </form>
 

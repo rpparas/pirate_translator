@@ -26,20 +26,19 @@ const TranslationDialog = (props: Props) => {
 
   const onCloseDialog = () => {
     setTranslation({
-        ...translation,
-        openDialog: false,
+      ...translation,
+      openDialog: false,
     });
-
   };
 
   const onChangeLanguage = (
     evt: React.ChangeEvent<HTMLInputElement | {}>,
     lang: string
   ) => {
-      // only make request if selected lang is in known list of available languages
-      if (translators.includes(lang.toLowerCase())) {
-        props.fetchTranslation(lang.toLowerCase());
-      }
+    // only make request if selected lang is in known list of available languages
+    if (translators.includes(lang.toLowerCase())) {
+      props.fetchTranslation(lang.toLowerCase());
+    }
   };
 
   const classes = useStyles();

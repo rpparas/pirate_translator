@@ -5,10 +5,10 @@ import { atom } from "recoil";
 export const translationDataModel = atom({
   key: "translationDataModel",
   default: {
-      "lang": "pirate", // default language to use
-      "translated": "", // output from translation
-      "isLoading": false, // whether request is in progress
-      "openDialog": false, // whether to show dialog
-      "errorMessage": "", // any error message from API call
+    lang: "pirate", // default language to use
+    translated: "", // output from translation
+    isLoading: false, // whether request is in progress
+    openDialog: false, // whether to show dialog
+    errorMessage: "", // any error message from API call
   },
 });

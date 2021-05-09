@@ -1,6 +1,6 @@
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Icon, InlineIcon } from "@iconify/react";
+import { Icon } from "@iconify/react";
 import pirateIcon from "@iconify-icons/mdi/pirate";
 
 const Header = () => {
