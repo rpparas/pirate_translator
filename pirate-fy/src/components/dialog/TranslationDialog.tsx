@@ -45,6 +45,7 @@ const TranslationDialog = (props: Props) => {
             <Dialog
                 open={translation.openDialog}
                 classes={{ paper: classes.dialog }}
+                onEscapeKeyDown={onCloseDialog}
                 aria-labelledby="Translation"
                 aria-describedby="Your input shown as its translation in pirate lingo"
             >
