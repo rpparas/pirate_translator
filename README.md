@@ -28,8 +28,10 @@ cd pirate_translator
 # runs the app as a Docker container
 make run-dev
 ```
-Open in your browser: [http://localhost:3000](http://localhost:3000)
+Open this in your browser: [http://localhost:3000](http://localhost:3000)
 
+### Via AWS
+(TODO: need to setup Lambda)
 
 
 ## Contributing
@@ -41,9 +43,8 @@ To check translators available on the API, run
 
 ```
 make list-translators
-
-# Note: What's listed on the [website](https://funtranslations.com/api/#all) may not necessarily be available (e.g. Austrian returns 404)
 ```
+Note: What's listed on the [website](https://funtranslations.com/api/#all) may not necessarily be available (e.g. Austrian returns 404)
 
 ## License
 
