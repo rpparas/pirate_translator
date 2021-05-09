@@ -23,16 +23,22 @@ const Form = () => {
     };
 
     const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(evt.target.value);
+        setInputValue(evt.target.value.trim());
     };
 
     // fetch translation via 3rd party API
     const fetchTranslation = (lang: string | null) => {
-        // setLoading(true);
         setTranslation({
             ...translation,
             isLoading: true,
         });
+
+        // TODO: figure out the limit for text to be added as url param
+        // TODO: check if text send via header has a higher limit
+        if (inputValue.length > 2048) {
+          alert("Your input is too long to be processed (exceeds 2048 chars).")
+          return;
+        }
 
         const baseUrl = `https://api.funtranslations.com/translate/${!!lang ? lang : "pirate"}.json?text=`;
         fetch(baseUrl + encodeURIComponent(inputValue))
