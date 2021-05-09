@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
@@ -56,7 +56,7 @@ const Form = () => {
                 setTranslation({
                     ...translation,
                     translated: "",
-                    errorMessage: "There was an error requesting translation.",
+                    errorMessage: `There was an error requesting translation. ${error}`,
                     isLoading: false,
                     openDialog: true,
                 });
