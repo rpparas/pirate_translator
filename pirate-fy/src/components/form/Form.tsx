@@ -36,8 +36,8 @@ const Form = () => {
         // TODO: figure out the limit for text to be added as url param
         // TODO: check if text send via header has a higher limit
         if (inputValue.trim().length > 2048) {
-          alert("Your input is too long to be processed (exceeds 2048 chars).")
-          return;
+            alert("Your input is too long to be processed (exceeds 2048 chars).");
+            return;
         }
 
         const baseUrl = `https://api.funtranslations.com/translate/${!!lang ? lang : "pirate"}.json?text=`;

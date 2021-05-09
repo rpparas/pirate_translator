@@ -10,7 +10,7 @@ run-dev: build-dev
 run-prod: build-prod
 	docker run -d -p 5000:5000 pirate_translator_prod
 
-prettifier:
+prettier:
 	npx prettier --write "**/*.(js|ts|tsx|css)"
 
 list-translators:
