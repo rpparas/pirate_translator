@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
@@ -9,44 +9,53 @@ import TranslationModal from "../dialog/TranslationDialog";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useStyles } from "./Form.styles";
-import { translationState, dialogState } from "../../states";
+import { translationDataModel } from "../../data-model";
 
 const Form = () => {
   const [inputValue, setInputValue] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const setTranslation = useSetRecoilState(translationState);
-  const setDialogOpen = useSetRecoilState(dialogState);
+  const [translation, setTranslation] = useRecoilState(translationDataModel);
 
   const classes = useStyles();
 
   const onSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
-    setLoading(true);
-
-    // fetch translation via 3rd party API
-    const baseUrl =
-      "https://api.funtranslations.com/translate/pirate.json?text=";
-    fetch(baseUrl + encodeURIComponent(inputValue))
-      .then((response) => response.json())
-      .then((response) => {
-        setTranslation(
-          response?.contents
-            ? response.contents.translated
-            : response.error.message
-        );
-      })
-      .catch((error) => {
-        setTranslation(error.message);
-      })
-      .finally(() => {
-        setDialogOpen(true);
-        setLoading(false);
-      });
+    fetchTranslation("pirate");
   };
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(evt.target.value);
+  };
+
+  // fetch translation via 3rd party API
+  const fetchTranslation = (lang: string | null) => {
+    // setLoading(true);
+      setTranslation({
+        ...translation,
+        isLoading: true
+      });
+
+    const baseUrl =
+      `https://api.funtranslations.com/translate/${!!lang ? lang : 'pirate'}.json?text=`;
+    fetch(baseUrl + encodeURIComponent(inputValue))
+      .then((response) => response.json())
+      .then((response) => {
+        setTranslation({
+          ...translation,
+          translated: response?.contents ? response.contents.translated : "",
+          errorMessage: response?.error?.message ? response.error.message : "",
+          isLoading: false,
+          openDialog: true,
+        });
+      })
+      .catch((error) => {
+        setTranslation({
+          ...translation,
+          translated: "",
+          errorMessage: "There was an error requesting translation.",
+          isLoading: false,
+          openDialog: true,
+        });
+      })
   };
 
   return (
@@ -79,15 +88,15 @@ const Form = () => {
           className={classes.button}
           size="large"
           onSubmit={onSubmit}
-          disabled={inputValue.trim().length == 0}
+          disabled={inputValue.trim().length === 0}
         >
           PIRATE-FY
-          {!loading && <FlagIcon />}
-          {loading && <CircularProgress className={classes.spinner} />}
+          {!translation.isLoading && !translation.openDialog && <FlagIcon />}
+          {translation.isLoading && !translation.openDialog && <CircularProgress className={classes.spinner} />}
         </Button>
       </form>
 
-      <TranslationModal />
+      <TranslationModal fetchTranslation={fetchTranslation} />
     </Container>
   );
 };
