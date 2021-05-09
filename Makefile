@@ -12,3 +12,6 @@ run-prod: build-prod
 
 prettifier:
 	npx prettier --write "**/*.(js|ts|tsx|css)"
+
+list-translators:
+	curl -sL https://funtranslations.com/api/\#all | grep "^      http.*\.json$" | grep -oP '(?<=translate/).*(?=.json)' | uniq | sort
