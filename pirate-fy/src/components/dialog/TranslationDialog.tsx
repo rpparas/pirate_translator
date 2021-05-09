@@ -45,16 +45,14 @@ const TranslationDialog = (props: Props) => {
             <Dialog
                 open={translation.openDialog}
                 classes={{ paper: classes.dialog }}
-                aria-labelledby="Pirate Translation"
+                aria-labelledby="Translation"
                 aria-describedby="Your input shown as its translation in pirate lingo"
             >
-                <DialogTitle>{capitalizeFirst(translation.lang)} Translation:</DialogTitle>
+                <DialogTitle>Translation:</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="translation">
-                        {translation.translated.length > 0 && <h3 className={classes.output}>{translation.translated}</h3>}
-                        {translation.errorMessage.length > 0 && (
-                            <h3 className={`${classes.output} ${classes.error}`}>{translation.errorMessage}</h3>
-                        )}
+                    <DialogContentText className={`${classes.output} ${!!translation.errorMessage ? classes.error : ""}`}>
+                        {!!translation.translated && translation.translated}
+                        {!!translation.errorMessage && translation.errorMessage}
                     </DialogContentText>
                     <Autocomplete
                         options={translators}
