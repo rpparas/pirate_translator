@@ -23,7 +23,7 @@ const Form = () => {
     };
 
     const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(evt.target.value.trim());
+        setInputValue(evt.target.value);
     };
 
     // fetch translation via 3rd party API
@@ -35,13 +35,13 @@ const Form = () => {
 
         // TODO: figure out the limit for text to be added as url param
         // TODO: check if text send via header has a higher limit
-        if (inputValue.length > 2048) {
+        if (inputValue.trim().length > 2048) {
           alert("Your input is too long to be processed (exceeds 2048 chars).")
           return;
         }
 
         const baseUrl = `https://api.funtranslations.com/translate/${!!lang ? lang : "pirate"}.json?text=`;
-        fetch(baseUrl + encodeURIComponent(inputValue))
+        fetch(baseUrl + encodeURIComponent(inputValue.trim()))
             .then((response) => response.json())
             .then((response) => {
                 setTranslation({
