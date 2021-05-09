@@ -10,26 +10,26 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import amber from "@material-ui/core/colors/amber";
 
 const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: amber,
-    secondary: {
-      main: "#b9f6ca",
+    palette: {
+        type: "dark",
+        primary: amber,
+        secondary: {
+            main: "#b9f6ca",
+        },
     },
-  },
 });
 
 ReactDOM.render(
-  // use Recoil for global state management
-  <RecoilRoot>
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </React.StrictMode>
-  </RecoilRoot>,
-  document.getElementById("root")
+    // use Recoil for global state management
+    <RecoilRoot>
+        <React.StrictMode>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <App />
+            </ThemeProvider>
+        </React.StrictMode>
+    </RecoilRoot>,
+    document.getElementById("root")
 );
 
 reportWebVitals();

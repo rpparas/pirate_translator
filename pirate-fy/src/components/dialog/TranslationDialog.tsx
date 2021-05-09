@@ -16,83 +16,63 @@ import { TextField } from "@material-ui/core";
 import { useStyles } from "./TranslationDialog.styles";
 
 interface Props {
-  fetchTranslation: (lang: string) => void;
+    fetchTranslation: (lang: string) => void;
 }
 
 const capitalizeFirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const TranslationDialog = (props: Props) => {
-  const [translation, setTranslation] = useRecoilState(translationDataModel);
+    const [translation, setTranslation] = useRecoilState(translationDataModel);
 
-  const onCloseDialog = () => {
-    setTranslation({
-      ...translation,
-      openDialog: false,
-    });
-  };
+    const onCloseDialog = () => {
+        setTranslation({
+            ...translation,
+            openDialog: false,
+        });
+    };
 
-  const onChangeLanguage = (
-    evt: React.ChangeEvent<HTMLInputElement | {}>,
-    lang: string
-  ) => {
-    // only make request if selected lang is in known list of available languages
-    if (translators.includes(lang.toLowerCase())) {
-      props.fetchTranslation(lang.toLowerCase());
-    }
-  };
+    const onChangeLanguage = (evt: React.ChangeEvent<HTMLInputElement | {}>, lang: string) => {
+        // only make request if selected lang is in known list of available languages
+        if (translators.includes(lang.toLowerCase())) {
+            props.fetchTranslation(lang.toLowerCase());
+        }
+    };
 
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div>
-      <Dialog
-        open={translation.openDialog}
-        classes={{ paper: classes.dialog }}
-        aria-labelledby="Pirate Translation"
-        aria-describedby="Your input shown as its translation in pirate lingo"
-      >
-        <DialogTitle>
-          {capitalizeFirst(translation.lang)} Translation:
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="translation">
-            {translation.translated.length > 0 && (
-              <h3 className={classes.output}>{translation.translated}</h3>
-            )}
-            {translation.errorMessage.length > 0 && (
-              <h3 className={`${classes.output} ${classes.error}`}>
-                {translation.errorMessage}
-              </h3>
-            )}
-          </DialogContentText>
-          <Autocomplete
-            options={translators}
-            getOptionLabel={(option) => capitalizeFirst(option)}
-            style={{ paddingTop: 20 }}
-            onInputChange={onChangeLanguage}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Translate in another language"
-                variant="outlined"
-              />
-            )}
-          />
-          {translation.isLoading && <CircularProgress />}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={onCloseDialog}
-            color="primary"
-            autoFocus
-            className={classes.button}
-          >
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+    return (
+        <div>
+            <Dialog
+                open={translation.openDialog}
+                classes={{ paper: classes.dialog }}
+                aria-labelledby="Pirate Translation"
+                aria-describedby="Your input shown as its translation in pirate lingo"
+            >
+                <DialogTitle>{capitalizeFirst(translation.lang)} Translation:</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="translation">
+                        {translation.translated.length > 0 && <h3 className={classes.output}>{translation.translated}</h3>}
+                        {translation.errorMessage.length > 0 && (
+                            <h3 className={`${classes.output} ${classes.error}`}>{translation.errorMessage}</h3>
+                        )}
+                    </DialogContentText>
+                    <Autocomplete
+                        options={translators}
+                        getOptionLabel={(option) => capitalizeFirst(option)}
+                        style={{ paddingTop: 20 }}
+                        onInputChange={onChangeLanguage}
+                        renderInput={(params) => <TextField {...params} label="Translate in another language:" variant="outlined" />}
+                    />
+                    {translation.isLoading && <CircularProgress style={{ marginTop: 5 }} />}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog} color="primary" autoFocus className={classes.button}>
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
 };
 
 export default TranslationDialog;
