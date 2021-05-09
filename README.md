@@ -20,7 +20,7 @@ npm run build
 npm run start
 ```
 
-### Via Docker:
+### Via local Docker build:
 
 ```
 cd pirate_translator
@@ -30,9 +30,14 @@ make run-dev
 ```
 Open this in your browser: [http://localhost:3000](http://localhost:3000)
 
-### Via AWS
-(TODO: need to setup Lambda)
+### From Docker Hub
+```
+make run-prod-dh
+```
 
+### Directly on Deployed Site
+
+Head over to [Vercel](https://pirate-translator.vercel.app/)
 
 ## Contributing
 

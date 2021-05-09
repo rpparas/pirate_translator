@@ -10,6 +10,14 @@ run-dev: build-dev
 run-prod: build-prod
 	docker run -d -p 5000:5000 pirate_translator_prod
 
+push-prod-dh: build-prod
+	docker tag pirate_translator_prod docker.io/rpparas/pirate_translator
+	docker push docker.io/rpparas/pirate_translator
+
+run-prod-dh:
+	docker pull docker.io/rpparas/pirate_translator
+	docker run -d -p 5000:5000 docker.io/rpparas/pirate_translator
+
 prettier:
 	npx prettier --write "**/*.(js|ts|tsx|css)"
 
