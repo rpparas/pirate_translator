@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { atom, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
@@ -25,18 +25,23 @@ const Form = () => {
     setLoading(true);
 
     // fetch translation via 3rd party API
-    const baseUrl = "https://api.funtranslations.com/translate/pirate.json?text=";
+    const baseUrl =
+      "https://api.funtranslations.com/translate/pirate.json?text=";
     fetch(baseUrl + encodeURIComponent(inputValue))
       .then((response) => response.json())
       .then((response) => {
-        setTranslation(response?.contents ? response.contents.translated : response.error.message);
+        setTranslation(
+          response?.contents
+            ? response.contents.translated
+            : response.error.message
+        );
       })
       .catch((error) => {
         setTranslation(error.message);
       })
       .finally(() => {
         setDialogOpen(true);
-        setLoading(false)
+        setLoading(false);
       });
   };
 
@@ -83,7 +88,6 @@ const Form = () => {
       </form>
 
       <TranslationModal />
-
     </Container>
   );
 };
