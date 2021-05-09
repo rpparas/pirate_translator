@@ -9,7 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 
 import { useStyles } from "./TranslationDialog.styles";
-import { translationState, dialogState } from "../states";
+import { translationState, dialogState } from "../../states";
 
 const TranslationDialog = () => {
     const translation = useRecoilValue(translationState);

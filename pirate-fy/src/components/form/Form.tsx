@@ -5,11 +5,11 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FlagIcon from "@material-ui/icons/Flag";
-import TranslationModal from "./TranslationDialog";
+import TranslationModal from "../dialog/TranslationDialog";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useStyles } from "./Form.styles";
-import { translationState, dialogState } from "../states";
+import { translationState, dialogState } from "../../states";
 
 const Form = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -83,7 +83,7 @@ const Form = () => {
       </form>
 
       <TranslationModal />
-      
+
     </Container>
   );
 };
