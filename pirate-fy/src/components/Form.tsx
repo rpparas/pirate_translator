@@ -24,6 +24,7 @@ const Form = () => {
     evt.preventDefault();
     setLoading(true);
 
+    // fetch translation via 3rd party API
     const baseUrl = "https://api.funtranslations.com/translate/pirate.json?text=";
     fetch(baseUrl + encodeURIComponent(inputValue))
       .then((response) => response.json())
@@ -80,7 +81,9 @@ const Form = () => {
           {loading && <CircularProgress className={classes.spinner} />}
         </Button>
       </form>
+
       <TranslationModal />
+      
     </Container>
   );
 };
