@@ -43,11 +43,11 @@ const Form = () => {
         const baseUrl = `https://api.funtranslations.com/translate/${!!lang ? lang : "pirate"}.json?text=`;
         fetch(baseUrl + encodeURIComponent(inputValue.trim()))
             .then((response) => response.json())
-            .then((response) => {
+            .then((json) => {
                 setTranslation({
                     ...translation,
-                    translated: response?.contents ? response.contents.translated : "",
-                    errorMessage: response?.error?.message ? response.error.message : "",
+                    translated: json?.contents ? json.contents.translated : "",
+                    errorMessage: json?.error?.message ? json.error.message : "",
                     isLoading: false,
                     openDialog: true,
                 });

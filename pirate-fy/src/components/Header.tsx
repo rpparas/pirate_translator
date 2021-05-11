@@ -5,14 +5,12 @@ import pirateIcon from "@iconify-icons/mdi/pirate";
 
 const Header = () => {
     return (
-        <div className="root">
-            <AppBar position="static">
-                <Toolbar>
-                    <Icon icon={pirateIcon} height="1.5rem" width="1.5rem" />
-                    <h2 className="app-title">Translator for Pirates</h2>
-                </Toolbar>
-            </AppBar>
-        </div>
+        <AppBar position="static">
+            <Toolbar>
+                <Icon icon={pirateIcon} height="1.5rem" width="1.5rem" />
+                <h2 className="app-title">Translator for Pirates</h2>
+            </Toolbar>
+        </AppBar>
     );
 };
 
